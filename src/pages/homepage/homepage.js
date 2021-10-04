@@ -3,6 +3,7 @@ import './homepage.style.scss';
 import  Directory from '../../components/directory/directory.js';
 
 
+
 const HomePage = () =>{
 
   return(  
