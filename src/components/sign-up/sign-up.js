@@ -18,20 +18,22 @@ class SignUp extends React.Component{
             email:'',
             password:'',
             confirmPassword : ''
-        }
+        };
     }
 
     handleSubmit = async event =>{
         event.preventDefault();
 
         const {displayName,email,password,confirmPassword} = this.state;
-
+        
         if(password !== confirmPassword){
-            alert('passwords don\'t match');
+            alert("passwords don't match");
+            return;
         }
 
         try{
-            const {user} = await auth.createUserWithEmailAndPassword(email,password);
+            console.log(this.state);
+            const {user} = await auth.createUserWithEmailAndPassword(email.trim(),password);
             //await for this to finish
             await createUserProfileDocument(user,{displayName});
             //clear out form
@@ -47,11 +49,10 @@ class SignUp extends React.Component{
         }
     }
 
-    handleChange = (event) =>{
-        const {name,value} = event.target;
-
-        //dynamically set the name to the value;
-        this.setState({[name]:value})
+    handleChange =  (event ,name) =>{
+       
+        this.setState({[name]:event.target.value},( ) => console.log(this.state));
+        
     }
     render(){
         const {displayName,email,password,confirmPassword} = this.state;
@@ -64,7 +65,7 @@ class SignUp extends React.Component{
                       type = 'text'
                       name = 'displayName'
                       value = {displayName}
-                      onChange = {this.handleChange}
+                      handleChange = {(e) => this.handleChange(e,'displayName')}
                       label = 'Display Name'
                       required
                     />
@@ -73,7 +74,7 @@ class SignUp extends React.Component{
                       type = 'email'
                       name = 'email'
                       value = {email}
-                      onChange = {this.handleChange}
+                      handleChange = {(e) => this.handleChange(e,'email')}
                       label = 'Email'
                       required
                     />
@@ -81,7 +82,7 @@ class SignUp extends React.Component{
                       type = 'password'
                       name = 'password'
                       value = {password}
-                      onChange = {this.handleChange}
+                      handleChange = {(e) => this.handleChange(e,'password')}
                       label = 'Password'
                       required
                     />
@@ -89,12 +90,12 @@ class SignUp extends React.Component{
                       type = 'password'
                       name = 'confirmPassword'
                       value = {confirmPassword}
-                      onChange = {this.handleChange}
+                      handleChange = {(e) => this.handleChange(e,'confirmPassword')}
                       label = 'Confirm Password'
                       required
                     />
 
-                    <CustomButtom type='submit'>SIGN UP</CustomButtom>
+                    <CustomButtom type ="submit" >SIGN UP</CustomButtom>
                 </form>
             </div>
         )

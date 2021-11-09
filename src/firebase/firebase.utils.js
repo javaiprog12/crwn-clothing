@@ -12,7 +12,7 @@ const config =
         appId: "1:1012303311618:web:419a7c758e88e8e612881b",
         measurementId: "G-5RN978EXW7"
     };
-
+/****Storing authentication in firestore database */
     export const createUserProfileDocument = async(userAuth,additionalData) =>{
         if(!userAuth) return;
 
